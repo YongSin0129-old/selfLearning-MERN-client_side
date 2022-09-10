@@ -8,6 +8,8 @@ const RegisterComponent = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [role, setRole] = useState('')
+  const [message, setMessage] = useState('')
+
   const handleUsername = e => {
     setUsername(e.target.value)
   }
@@ -21,20 +23,33 @@ const RegisterComponent = () => {
     setRole(e.target.value)
   }
   const handleRegister = () => {
-    console.log(username)
     AuthService.register(username, email, password, role)
       .then(() => {
         window.alert('an user has been registered , redirect to login page')
         navigate('/login')
       })
       .catch(err => {
-        window.alert(err.response.data)
+        setMessage(err.response.data)
       })
   }
 
   return (
     <div style={{ padding: '3rem' }} className='col-md-12'>
       <div>
+        {message && (
+          <div
+            className='alert alert-warning alert-dismissible fade show'
+            role='alert'
+          >
+            {message}
+            <button
+              type='button'
+              className='btn-close'
+              data-bs-dismiss='alert'
+              aria-label='Close'
+            />
+          </div>
+        )}
         <div>
           <label htmlFor='username'>Username</label>
           <input
