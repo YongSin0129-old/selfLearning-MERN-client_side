@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router'
 import AuthService from '../services/auth.service'
 
-const LoginComponent = () => {
+const LoginComponent = props => {
+  const { setCurrentUser } = props
   const Navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -17,6 +18,7 @@ const LoginComponent = () => {
     AuthService.login(email, password)
       .then(res => {
         localStorage.setItem('currentUser', JSON.stringify(res.data))
+        setCurrentUser(AuthService.getCurrentUser)
         Navigate('/profile')
       })
       .catch(err => {
