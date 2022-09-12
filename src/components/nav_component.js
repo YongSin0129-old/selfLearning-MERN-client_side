@@ -7,6 +7,8 @@ const NavComponent = props => {
   const Navigate = useNavigate()
 
   const handleLogout = () => {
+    const confirmLogoug = window.confirm('確定要登出嗎？')
+    if (!confirmLogoug) return
     AuthService.logout()
     window.alert('logout successful , you are direct to homepage now')
     Navigate('/')
@@ -50,6 +52,13 @@ const NavComponent = props => {
                   <li className='nav-item'>
                     <Link className='nav-link' to='/course'>
                       Course
+                    </Link>
+                  </li>
+                )}
+                {currentUser && currentUser.user.role === 'instructor' && (
+                  <li className='nav-item'>
+                    <Link className='nav-link' to='/postCourse'>
+                      postCourse
                     </Link>
                   </li>
                 )}

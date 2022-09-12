@@ -6,6 +6,7 @@ import RegisterComponent from './components/register_component'
 import LoginComponent from './components/login_component'
 import ProfileComponent from './components/profile_component'
 import CourseComponent from './components/course_component'
+import PostCourseComponent from './components/postCourse_component'
 import AuthService from './services/auth.service'
 
 const App = () => {
@@ -30,6 +31,15 @@ const App = () => {
         <Route
           path='/course'
           element={<CourseComponent currentUser={currentUser} />}
+        />
+        <Route
+          path='/postCourse'
+          element={
+            <PostCourseComponent
+              currentUser={currentUser}
+              setCurrentUser={setCurrentUser}
+            />
+          }
         />
       </Routes>
     </div>
