@@ -5,6 +5,7 @@ import HomeComponent from './components/home_component'
 import RegisterComponent from './components/register_component'
 import LoginComponent from './components/login_component'
 import ProfileComponent from './components/profile_component'
+import CourseComponent from './components/course_component'
 import AuthService from './services/auth.service'
 
 const App = () => {
@@ -25,6 +26,10 @@ const App = () => {
         <Route
           path='/profile'
           element={<ProfileComponent currentUser={currentUser} />}
+        />
+        <Route
+          path='/course'
+          element={<CourseComponent currentUser={currentUser} />}
         />
       </Routes>
     </div>

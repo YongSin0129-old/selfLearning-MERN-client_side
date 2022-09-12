@@ -47,6 +47,13 @@ const NavComponent = props => {
                   </li>
                 )}
                 {currentUser && (
+                  <li className='nav-item'>
+                    <Link className='nav-link' to='/course'>
+                      Course
+                    </Link>
+                  </li>
+                )}
+                {currentUser && (
                   <li onClick={handleLogout} className='nav-item'>
                     <Link className='nav-link' to='#'>
                       Logout
