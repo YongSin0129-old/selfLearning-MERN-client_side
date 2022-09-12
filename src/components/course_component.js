@@ -1,10 +1,23 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import courseService from '../services/course.service'
 
 const CourseComponent = props => {
   const { currentUser } = props
+  const [courseData, setCourseDate] = useState(null)
   const Navigate = useNavigate()
   const style = { padding: '3rem' }
+
+  useEffect(() => {
+    courseService
+      .getCourse()
+      .then(res => {
+        setCourseDate(res.data)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }, [])
 
   return (
     <div>
@@ -27,7 +40,12 @@ const CourseComponent = props => {
       )}
 
       {currentUser && currentUser.user.role === 'instructor' && (
-        <h1>welcome {currentUser.user.role}</h1>
+        <div>
+          <h1>welcome {currentUser.user.role}</h1>
+          {courseData?.map((data, i) => {
+            return <p key={i}>{data.title}</p>
+          })}
+        </div>
       )}
     </div>
   )
