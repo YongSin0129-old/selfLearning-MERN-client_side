@@ -27,6 +27,9 @@ const NavComponent = props => {
                     Home
                   </Link>
                 </li>
+                {/*
+                    如果沒有登入資料
+                 */}
                 {!currentUser && (
                   <li className='nav-item'>
                     <Link className='nav-link' to='/register'>
@@ -41,6 +44,9 @@ const NavComponent = props => {
                     </Link>
                   </li>
                 )}
+                {/*
+                    有登入資料
+                 */}
                 {currentUser && (
                   <li className='nav-item'>
                     <Link className='nav-link' to='/profile'>
@@ -48,7 +54,21 @@ const NavComponent = props => {
                     </Link>
                   </li>
                 )}
-                {currentUser && (
+                {currentUser && currentUser.user.role === 'student' && (
+                  <li className='nav-item'>
+                    <Link className='nav-link' to='/coursePage_student'>
+                      Course
+                    </Link>
+                  </li>
+                )}
+                {currentUser && currentUser.user.role === 'student' && (
+                  <li className='nav-item'>
+                    <Link className='nav-link' to='/coursePage_studentEnroll'>
+                      Enroll-course
+                    </Link>
+                  </li>
+                )}
+                {currentUser && currentUser.user.role === 'instructor' && (
                   <li className='nav-item'>
                     <Link className='nav-link' to='/course'>
                       Course

@@ -26,6 +26,23 @@ const courseService = {
         }
       }
     )
+  },
+
+  getCourseByStudentId: StudentId => {
+    return axios.get(API_URL + '/coursesByStudentId/' + StudentId, {
+      headers: { Authorization: getToken() }
+    })
+  },
+
+  enrollCourse: (studentId, courseId) => {
+    console.log('trigger enroll')
+    return axios.post(
+      API_URL + '/coursesByStudentId',
+      { studentId, courseId },
+      {
+        headers: { Authorization: getToken() }
+      }
+    )
   }
 }
 

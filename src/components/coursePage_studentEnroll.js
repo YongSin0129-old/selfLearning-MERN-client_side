@@ -21,24 +21,43 @@ const CourseComponent = props => {
       })
   }, [])
 
+  const handleEnroll = e => {
+    console.log(e.target.id)
+    console.log(e.target.getAttribute('course_id'))
+    console.log(currentUser.user._id)
+    const studentId = currentUser.user._id
+    const courseId = e.target.getAttribute('course_id')
+    courseService
+      .enrollCourse(studentId, courseId)
+      .then(res => {
+        console.log(res)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
   return (
     <div style={{ padding: '3rem' }}>
       {!currentUser && (
         <div>
           <p>You must login first before seeing posts.</p>
-          <button className='btn btn-primary btn-lg' onClick={handleTakeToLogin}>
+          <button
+            className='btn btn-primary btn-lg'
+            onClick={handleTakeToLogin}
+          >
             Take me to login page.
           </button>
         </div>
       )}
       {currentUser && currentUser.user.role === 'instructor' && (
         <div>
-          <h1>Welcome to instructor's Course Page.</h1>
+          <h1>只有學生可以進入此頁</h1>
         </div>
       )}
       {currentUser && currentUser.user.role === 'student' && (
         <div>
-          <h1>Welcome to Student's Course Page.</h1>
+          <h1>Welcome to Student's CourseEnroll Page.</h1>
         </div>
       )}
       {currentUser && courseData && courseData.length !== 0 && (
@@ -51,8 +70,13 @@ const CourseComponent = props => {
                 <p className='card-text'>{course.description}</p>
                 <p>Price: {course.price}</p>
                 <p>Student: {course.student?.length}</p>
-                <button className='card-text btn btn-primary'>
-                  See Course
+                <button
+                  onClick={handleEnroll}
+                  className='card-text btn btn-primary'
+                  course_id={course._id}
+                  id={course._id}
+                >
+                  Enroll Course
                 </button>
               </div>
             </div>

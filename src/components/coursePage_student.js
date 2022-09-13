@@ -12,9 +12,10 @@ const CourseComponent = props => {
 
   useEffect(() => {
     courseService
-      .getCourse()
+      .getCourseByStudentId(currentUser.user._id)
       .then(res => {
         setCourseData(res.data)
+        console.log("useEffect ~ res.data", res.data)
       })
       .catch(err => {
         console.log(err)
@@ -26,14 +27,17 @@ const CourseComponent = props => {
       {!currentUser && (
         <div>
           <p>You must login first before seeing posts.</p>
-          <button className='btn btn-primary btn-lg' onClick={handleTakeToLogin}>
+          <button
+            className='btn btn-primary btn-lg'
+            onClick={handleTakeToLogin}
+          >
             Take me to login page.
           </button>
         </div>
       )}
       {currentUser && currentUser.user.role === 'instructor' && (
         <div>
-          <h1>Welcome to instructor's Course Page.</h1>
+          <h1>只有學生可以進入此頁</h1>
         </div>
       )}
       {currentUser && currentUser.user.role === 'student' && (

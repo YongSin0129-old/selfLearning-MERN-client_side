@@ -5,15 +5,19 @@ import HomeComponent from './components/home_component'
 import RegisterComponent from './components/register_component'
 import LoginComponent from './components/login_component'
 import ProfileComponent from './components/profile_component'
+import CoursePageStudent from './components/coursePage_student'
+import CoursePageStudentEnroll from './components/coursePage_studentEnroll'
 import CourseComponent from './components/course_component'
 import PostCourseComponent from './components/postCourse_component'
 import AuthService from './services/auth.service'
 
 const App = () => {
-  const [currentUser, setCurrentUser] = useState(null)
+  const [currentUser, setCurrentUser] = useState(AuthService.getCurrentUser)
+
   useEffect(() => {
     setCurrentUser(AuthService.getCurrentUser)
   }, [])
+
   return (
     <div>
       <NavComponent currentUser={currentUser} />
@@ -27,6 +31,14 @@ const App = () => {
         <Route
           path='/profile'
           element={<ProfileComponent currentUser={currentUser} />}
+        />
+        <Route
+          path='/coursePage_student'
+          element={<CoursePageStudent currentUser={currentUser} />}
+        />
+        <Route
+          path='/coursePage_studentEnroll'
+          element={<CoursePageStudentEnroll currentUser={currentUser} />}
         />
         <Route
           path='/course'
